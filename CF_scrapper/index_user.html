@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Users</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="css/main1.css">
+
+
+</head>
+<body>
+	
+	<nav id = "main">
+		<ul>
+			<li class="logo"><a href="#">Top</a></li>
+            <li id = "sitename"><a href="index.html">CF Scrapper</a></li>
+			<li><a href="index.html">Contests-Divisons</a></li>
+			<li><a href="index_user.html">Users</a></li>
+			<li><a href="https://github.com/Harsh-Modi278" target="_blank">About</a></li>
+		</ul>
+	</nav>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class = "loading">
+				<p class = "loading-message">Please wait while the list is being updated...</p>
+			</div>
+			
+			<div class="wrap-table100">
+				<br>
+                <form class = "handles" >
+					<!-- <hr> -->
+					<div class="handle1">
+						<br>
+						<label for="firstCFHandle"> Your CF Handle</label>
+						<div><input type="text" placeholder="abc" id = "firstCFHandle"></div>
+						<button type="submit" class="btn btn1">Ok</button>
+					</div>
+					<hr>
+					<div class="handle2">
+						<br>
+						<label for="secondCFHandle">Other CF Handle</label>
+						<div><input type="text" placeholder="xyz" id = "secondCFHandle"></div>
+						<button type="submit" class="btn btn2">Ok</button>
+					</div>
+					<hr>
+					<br>
+					<button type = "submit" class = "btn-swap">Swap</button>
+					<button type="submit" class="btn btn3">Search</button>
+					<br>
+					<hr>
+					<div style="padding-top:5px ;">
+						<p id = "problemCntMessage"></p>
+					</div>
+					
+					<p id = "problemCntMessage"></p>
+						
+				</form>
+				<br>
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class = "column0">#</th>
+								<th class="column1">Problem</th>
+                                <th class="column2">Tags</th>
+								<th class="column3">Rating &#8597</th>
+                                <th class="column4">Date &#8597;</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+	<script src="js/main1.js"></script>
+
+</body>
+</html>

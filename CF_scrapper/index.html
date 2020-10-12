@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CodeForces contests</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body onload="makeAsyncRequestToCFAPI()">
+	
+	<nav id = "main">
+		<ul>
+			<li class="logo"><a href="#">Top</a></li>
+			<li id = "sitename"><a href="index.html">CF Scrapper</a></li>
+			<li><a href="index.html">Contests-Divisons</a></li>
+			<li><a href="index_user.html">Users</a></li>
+			<li><a href="https://github.com/Harsh-Modi278" target="_blank">About</a></li>
+		</ul>
+	</nav>
+	<!-- <a name="top"></a>
+	<a href="#top">Back to top</a> -->
+
+	<div class="limiter">
+		<div class="container-table100">
+			<div class = loading>
+				<p class = "loading-message">Failed to fetch from CF API, will show results which are in website cache</p>
+			</div>
+			<div class="wrap-table100">
+				<label for="contestType"></label>
+				<select name="contestType" id="divisionSelect">
+					<option value="CodeForces Contests" selected="">Choose Contest Division:</option>
+					<option value="Divison 3">Divison 3</option>
+					<option value="Divison 2">Divison 2</option>
+					<option value="Divison 1">Divison 1</option>
+					<option value="Educational Rounds">Educational Rounds</option>
+					<option value="Global Rounds">Global Rounds</option>
+					<option value="Other Contests">Other Contests</option>
+					<option value="Upcoming Contests">Upcoming Contests</option>
+
+				</select>
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class = "column0">#</th>
+								<th class="column1">Contest</th>
+								<th class="column2">Date &#8597;</th>
+
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+	<script src="js/main.js"></script>
+
+</body>
+</html>
