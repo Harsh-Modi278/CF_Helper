@@ -10,14 +10,19 @@ const loadingMessage = document.querySelector(".loading-message");
 const loadingDiv = document.querySelector(".loading");
 const problemCntMessage = document.querySelector("#problemCntMessage");
 const swapButton = document.querySelector(".btn-swap");
+const ratingsDropDown = document.querySelector(`select[name = "selectRating"]`);
+
+// const selectTags = document.querySelector(`select[name = "selectTags"]`);
 const endpointUserInfo = "https://codeforces.com/api/user.info?handles=";
 const endpointUserStats = "https://codeforces.com/api/user.status?handle=";
 let pre = "https://codeforces.com/problemset/problem/";
-let firstUserProblems = [], secondUserContests = [], v = [], users = new Set();
+let firstUserProblems = [], secondUserContests = [], v = [], users = new Set(), vRatingFilter = [];
 let st1 = new Set(), st2 = new Set();
 const nav = document.querySelector('#main');
 let topOfNav = nav.offsetTop;
 let g1 = false, g2 = false;
+let availableTags = new Set();
+let ratingSelected = "All";
 
 function toHHMMSS(sec_num)
 {
@@ -93,6 +98,8 @@ function displayUpdate(arr)
     )
 }
 
+
+
 function timeout(ms, promise) 
 {
     return new Promise(
@@ -158,7 +165,16 @@ async function fetchProblems(name,arr)
             obj.rating = it.problem.rating;
             obj.date = it.creationTimeSeconds;
             // console.log(typeof obj.rating);
-            if(obj.verdict === "OK" && typeof obj.rating === typeof Number(1) ) arr.push(obj);
+            if(obj.verdict === "OK" && typeof obj.rating === typeof Number(1) ) 
+            {
+                arr.push(obj);
+                obj.tags.forEach(
+                    (currTag)=>
+                    {
+                        availableTags.add(currTag);
+                    }
+                );
+            }
         }
     );
     return true;       
@@ -314,15 +330,56 @@ async function runEventButton3(e)
 
         );
         const len = v.length;
-        problemCntMessage.innerHTML = `${len} number of problems are done successfully by <em><strong>${secondHandle}</strong></em>  which are not done by 
+        problemCntMessage.innerHTML = `Total ${len} number of problems are done successfully by <em><strong>${secondHandle}</strong></em>  which are not done by 
         <em><strong>${firstHandle}</strong></em>`;
         // console.log(v);
-        displayUpdate(v);
+        ratingSelected = "All";
+        let rating  = -1, greaterFlag = false;
+        for(let w of Array.from(ratingsDropDown.options))
+        {
+            if(w.selected)
+            {
+                ratingSelected = w.value;
+                if(w.value[0]>='0' && w.value[0]<='9')
+                {
+                    rating = parseInt(w.value);
+                }
+                else if(w.value==="All")
+                {
+                    rating = -1;
+                }
+                else
+                {
+                    rating = parseInt(w.value.slice(1));
+                    greaterFlag = true;
+                }
+                break;
+            }
+        }
+        // console.log({rating,greaterFlag});
+        vRatingFilter = v.filter(
+            (it)=>
+            {
+                if(rating===-1)
+                {
+                    return it;
+                }
+                if(greaterFlag)
+                {
+                    if(it.rating>=rating) return it;
+                }
+                else
+                {
+                    if(it.rating === rating) return it;
+                }
+            }
+        );
+        displayUpdate(vRatingFilter);
     }
     else
     {
         // console.log("here");
-        alert("Either first or second handle is invalid");
+        alert("First or Second handle is invalid");
         document.body.style.paddingTop += loadingDiv.getBoundingClientRect().height;
         loadingDiv.style.display = "none";
         
@@ -348,10 +405,11 @@ let ratingOrder = 1, dateOrder = 1;
 col3.addEventListener("click",
 (e)=>
 {
+    if(ratingSelected!=="All") return;
     ratingOrder = !ratingOrder;
-    v.sort(sortByRating);
-    if(!ratingOrder) v.reverse();
-    displayUpdate(v);
+    vRatingFilter.sort(sortByRating);
+    if(!ratingOrder) vRatingFilter.reverse();
+    displayUpdate(vRatingFilter);
 }
 );
 
@@ -359,9 +417,9 @@ col4.addEventListener("click",
 (e)=>
 {
     dateOrder = !dateOrder;
-    v.sort(sortByDate);
-    if(!dateOrder) v.reverse();
-    displayUpdate(v);
+    vRatingFilter.sort(sortByDate);
+    if(!dateOrder) vRatingFilter.reverse();
+    displayUpdate(vRatingFilter);
 }
 );
 
@@ -385,3 +443,50 @@ swapButton.addEventListener("click",
 }
 );
 
+ratingsDropDown.addEventListener("input",
+()=>
+{
+        ratingSelected = "All";
+        let rating  = -1, greaterFlag = false;
+        for(let w of Array.from(ratingsDropDown.options))
+        {
+            if(w.selected)
+            {
+                ratingSelected = w.value;
+                if(w.value[0]>='0' && w.value[0]<='9')
+                {
+                    rating = parseInt(w.value);
+                }
+                else if(w.value==="All")
+                {
+                    rating = -1;
+                }
+                else
+                {
+                    rating = parseInt(w.value.slice(1));
+                    greaterFlag = true;
+                }
+                break;
+            }
+        }
+        // console.log({rating,greaterFlag});
+        vRatingFilter = v.filter(
+            (it)=>
+            {
+                if(rating===-1)
+                {
+                    return it;
+                }
+                if(greaterFlag)
+                {
+                    if(it.rating>=rating) return it;
+                }
+                else
+                {
+                    if(it.rating === rating) return it;
+                }
+            }
+        );
+        displayUpdate(vRatingFilter);
+}
+);

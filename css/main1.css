@@ -358,23 +358,23 @@
       top: 0;
     }
     table tbody tr td:nth-child(1):before {
-      content: "Date";
+      content: "Index";
     }
     table tbody tr td:nth-child(2):before {
-      content: "Order ID";
+      content: "Problem";
     }
     table tbody tr td:nth-child(3):before {
-      content: "Name";
+      content: "Tags";
     }
     table tbody tr td:nth-child(4):before {
-      content: "Price";
+      content: "Rating";
     }
     table tbody tr td:nth-child(5):before {
-      content: "Quantity";
+      content: "Date";
     }
-    table tbody tr td:nth-child(6):before {
+    /* table tbody tr td:nth-child(6):before {
       content: "Total";
-    }
+    } */
   
     .column4,
     .column5,
@@ -397,14 +397,17 @@
   }
   
   
-  select[name = contestType]
+  select[name = selectRating], select[name = selectTags]
+
   {
     /* border: red 2px solid; */
     /* appearance: none; */
     color: #101820FF;
     padding: 10px;
+    border-radius: 10px;
+    border-color: black;
     width: auto;
-    padding-right: 30px;
+    /* padding-right: 30px; */
     margin: 0 auto;
     margin-bottom: 20px;
     font-family: OpenSans-Regular;
