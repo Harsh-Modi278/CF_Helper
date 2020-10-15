@@ -312,15 +312,18 @@ function makeAsyncRequestToCFAPI()
 
         );
         updateLocalStorage();
+        fetchContestLists();
     }
 
     )
     .catch(
         (err)=>
         {
-            console.log("Error message:",err);
+            // console.log("Error message:",err);
             // alert(`Failed to fetch from CF API, will show results which are in website cache`);
             loadingMessage.style.display = "block";
+            fetchContestLists();
+
         }
     );
 }
@@ -388,7 +391,7 @@ dropDown.addEventListener("input",
     );
 
 loadingMessage.style.display = "none";
-fetchContestLists();
+// fetchContestLists();
 
 dateColHeader.addEventListener("click",
 (e)=>
